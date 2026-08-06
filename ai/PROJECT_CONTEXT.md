@@ -32,7 +32,7 @@ The project is intended to simulate how infrastructure teams build reusable back
 
 Current Phase:
 
-Project Documentation
+Sprint 2 – Infrastructure Setup
 
 Completed:
 
@@ -54,7 +54,7 @@ Completed:
 
 Current Sprint:
 
-Sprint 1
+Sprint 2
 
 ---
 

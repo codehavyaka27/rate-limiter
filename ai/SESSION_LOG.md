@@ -73,7 +73,7 @@ Completed
 - DECISIONS.md
 - SESSION_LOG.md
 - CODING_GUIDELINES.md
-- DEVELOPEMENT_RULES.md
+- DEVELOPMENT_RULES.md
 - PROMPTS.md
 
 ---
@@ -106,26 +106,187 @@ None.
 
 Sprint 2
 
-Objective:
+Objective
 
 Redis Integration
 
-Tasks:
+Tasks
 
-- Install Docker
-- Run Redis
-- Configure Spring Boot
-- Verify Redis connection
+- Verify Docker installation
+- Create docker-compose.yml
+- Start Redis container
+- Configure Spring Boot Redis
+- Verify Redis connectivity
 
 ---
 
 ## Status
 
-Sprint 1
-
-🟢 On Track
+🟢 Completed
 
 ---
+
+## Git Information
+
+Repository
+
+GitHub Initialized
+
+Branch
+
+develop
+
+Last Commit
+
+Initialize project structure and documentation
+
+================================================================================
+
+# Session 2
+
+Date
+
+2026-08-06
+
+Duration
+
+Infrastructure Session
+
+---
+
+## Objective
+
+Set up the Redis infrastructure and establish communication between Spring Boot and Redis.
+
+---
+
+## Completed
+
+### Docker
+
+- Verified Docker Desktop installation.
+- Learned Docker fundamentals.
+- Created docker-compose.yml.
+- Started Redis container successfully.
+- Verified Redis is running on port 6379.
+
+---
+
+### Spring Boot Configuration
+
+- Added Redis configuration in application.properties.
+- Configured application name.
+- Configured server port.
+- Learned Spring Boot externalized configuration.
+
+---
+
+### Spring Boot Concepts
+
+Learned and understood:
+
+- Spring Container
+- Dependency Injection (DI)
+- Inversion of Control (IoC)
+- Auto Configuration
+- RedisTemplate
+- CommandLineRunner
+- Infrastructure verification approach
+
+---
+
+### Redis Verification
+
+Created:
+
+- RedisConnectionVerifier
+
+Verified:
+
+- RedisTemplate injection
+- Redis SET operation
+- Redis GET operation
+- Successful communication between Spring Boot and Redis
+
+Console Output
+
+Redis Value : RateLimiter
+
+Infrastructure verified successfully.
+
+---
+
+## Decisions
+
+- Use Spring Boot Auto Configuration instead of creating a custom RedisConfig class.
+- Postpone custom Logback configuration until the logging sprint.
+- Keep infrastructure verification separate from business logic.
+- Repository layer will be the only layer interacting directly with RedisTemplate.
+
+---
+
+## Lessons Learned
+
+- Docker containers expose services through mapped ports.
+- Spring Boot automatically creates RedisTemplate.
+- Dependency Injection provides infrastructure objects instead of manually creating them.
+- application.properties externalizes environment-specific configuration.
+- Infrastructure should always be validated before implementing business logic.
+- Empty configuration files (such as logback-spring.xml) can prevent application startup.
+
+---
+
+## Issues Encountered
+
+- IntelliJ project import confusion.
+- Incorrect Java package declarations.
+- Maven dependency configuration issues.
+- Empty logback-spring.xml caused application startup failure.
+- Spring Boot test configuration issue resolved during setup.
+
+All issues were resolved successfully.
+
+---
+
+## Next Session
+
+Sprint 3
+
+Objective
+
+Build the Redis Repository Layer.
+
+Tasks
+
+- Design RedisRepository
+- Implement RedisRepository
+- Encapsulate RedisTemplate
+- Remove direct Redis access from services
+- Follow Repository Pattern
+
+---
+
+## Status
+
+🟢 Completed
+
+---
+
+## Git Information
+
+Repository
+
+GitHub Initialized
+
+Branch
+
+develop
+
+Last Commit
+
+Complete Redis infrastructure setup and connectivity verification.
+
+================================================================================
 
 # Session Template
 
@@ -163,7 +324,7 @@ YYYY-MM-DD
 
 ---
 
-## Issues
+## Issues Encountered
 
 ...
 
@@ -182,3 +343,19 @@ YYYY-MM-DD
 🟡 In Progress
 
 🔴 Blocked
+
+---
+
+## Git Information
+
+Repository
+
+...
+
+Branch
+
+...
+
+Last Commit
+
+...

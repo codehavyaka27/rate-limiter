@@ -254,6 +254,78 @@ Create dedicated documentation before implementation.
 
 ---
 
+# ADR-007
+
+## Title
+
+Centralize Redis Operations Behind a Repository
+
+## Status
+
+Accepted
+
+## Context
+
+The application needs to interact with Redis for rate limiting.
+
+Direct usage of RedisTemplate throughout the application would tightly couple business logic to Redis and make future changes difficult.
+
+## Decision
+
+Introduce a dedicated RedisRepository.
+
+Only RedisRepository is allowed to access RedisTemplate.
+
+All higher layers communicate only with the repository.
+
+## Consequences
+
+### Advantages
+
+- Business logic remains independent of Redis.
+- Easier testing.
+- Easier maintenance.
+- Infrastructure changes are isolated.
+
+### Disadvantages
+
+- One additional abstraction layer.
+
+# ADR-002
+
+## Title
+
+Centralize Redis Key Generation
+
+## Status
+
+Accepted
+
+## Context
+
+Redis keys are used throughout the application.
+
+Manually concatenating strings in multiple places risks inconsistent key naming and makes future changes difficult.
+
+## Decision
+
+Introduce RedisKeyBuilder as a utility class responsible for generating Redis keys.
+
+Services request keys from RedisKeyBuilder instead of constructing them manually.
+
+## Consequences
+
+### Advantages
+
+- Consistent naming.
+- Single source of truth.
+- Easier future changes.
+- Fewer bugs caused by typos.
+
+### Disadvantages
+
+- Small additional utility class.
+
 # Future ADRs
 
 Examples

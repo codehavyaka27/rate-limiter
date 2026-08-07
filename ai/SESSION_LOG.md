@@ -247,92 +247,90 @@ Infrastructure verified successfully.
 All issues were resolved successfully.
 
 ---
-
-## Next Session
-
-Sprint 3
-
-Objective
-
-Build the Redis Repository Layer.
-
-Tasks
-
-- Design RedisRepository
-- Implement RedisRepository
-- Encapsulate RedisTemplate
-- Remove direct Redis access from services
-- Follow Repository Pattern
-
----
-
-## Status
-
-🟢 Completed
-
----
-
-## Git Information
-
-Repository
-
-GitHub Initialized
-
-Branch
-
-develop
-
-Last Commit
-
-Complete Redis infrastructure setup and connectivity verification.
-
-================================================================================
-
-# Session Template
-
----
-
-# Session X
+# Session 3
 
 Date
 
-YYYY-MM-DD
+2026-08-07
+
+Duration
+
+Sprint 3
 
 ---
 
 ## Objective
 
-...
+Implement the core Fixed Window Rate Limiter and establish clean architectural boundaries.
 
 ---
 
 ## Completed
 
-...
+### Infrastructure
+
+- Verified Redis integration
+- Verified Spring Boot ↔ Redis connectivity
 
 ---
 
-## Decisions
+### Implementation
 
-...
+Completed:
+
+- RedisKeyBuilder
+- RedisRepository
+- RateLimiterService
+
+---
+
+### Engineering Decisions
+
+- Introduced RedisKeyBuilder as a utility class.
+- Repository owns infrastructure logic.
+- Service owns business logic.
+- Atomic Redis INCR selected instead of GET + SET.
+- TTL applied only for the first request in a window.
+- Constructor Injection adopted.
+- Redis keys centralized.
+- Followed KISS and YAGNI principles.
 
 ---
 
 ## Lessons Learned
 
-...
+- Atomic operations eliminate race conditions.
+- Business logic and infrastructure logic should remain separate.
+- Small APIs are easier to maintain.
+- Key naming is an architectural decision.
+- Design discussions reduce implementation complexity.
 
 ---
 
 ## Issues Encountered
 
-...
+- Incorrect package structure (folders instead of packages).
+- Maven dependency issues caused by Spring Boot 4 starter selection.
+- IntelliJ project structure issues.
+- Resolved all issues successfully.
 
 ---
 
 ## Next Session
 
-...
+Sprint 4
+
+Objective
+
+Verify the Fixed Window algorithm.
+
+Tasks
+
+- Create temporary CommandLineRunner
+- Verify request counting
+- Verify TTL
+- Verify rejection after limit
+- Create REST Controller
 
 ---
 
@@ -340,22 +338,14 @@ YYYY-MM-DD
 
 🟢 Completed
 
-🟡 In Progress
-
-🔴 Blocked
-
 ---
 
 ## Git Information
 
-Repository
-
-...
-
 Branch
 
-...
+develop
 
-Last Commit
+Commit
 
-...
+Sprint 3 - Core Rate Limiter Foundation

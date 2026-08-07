@@ -4,7 +4,7 @@
 
 # Current Sprint
 
-Sprint 2 – Redis Integration
+Sprint 3 – Core Rate Limiter
 
 Status
 
@@ -14,9 +14,9 @@ Status
 
 # Current Phase
 
-Infrastructure Ready
+Core Rate Limiter Completed
 
-Spring Boot ↔ Redis Connectivity Verified
+Preparing for Verification
 
 ---
 
@@ -34,7 +34,10 @@ Spring Boot ↔ Redis Connectivity Verified
 - [x] GitHub repository created
 - [x] Main branch created
 - [x] Develop branch created
-
+- [x] RedisKeyBuilder created
+- [x] RedisRepository implemented
+- [x] RateLimiterService implemented
+- [x] Fixed Window core algorithm completed
 ---
 
 ## Documentation
@@ -66,21 +69,20 @@ Spring Boot ↔ Redis Connectivity Verified
 
 # Current Task
 
-Prepare the data access layer.
-
-Implement the Redis Repository.
+Verify the Rate Limiter implementation.
 
 ---
 
 # Next Tasks
 
-Sprint 3
+Sprint 4
 
-- Design RedisRepository
-- Implement RedisRepository
-- Encapsulate RedisTemplate
-- Implement repository methods
-- Remove direct Redis access from services
+- Verify RateLimiterService
+- Create temporary CommandLineRunner
+- Test Redis TTL
+- Verify request rejection
+- Create REST Controller
+- Create Request DTO
 
 ---
 
@@ -92,7 +94,7 @@ None
 
 # Current Algorithm
 
-Fixed Window Counter
+🟢 Fixed Window Implemented
 
 Implementation Status
 
@@ -115,17 +117,14 @@ Complete Redis infrastructure setup and connectivity verification.
 # Build Status
 
 - Project builds successfully.
-- Application starts successfully.
-- Docker container running successfully.
-- Redis container running successfully.
-- Spring Boot connected to Redis.
-- Redis read/write operations verified.
-
+- Redis integration completed.
+- Core Rate Limiter implemented.
+- Verification pending.
 ---
 
 # Pending Features
 
-- Redis Repository
+
 - DTOs
 - Controller
 - Service Layer
@@ -149,7 +148,7 @@ None
 
 # Next Milestone
 
-Repository Layer Completed
+Verified Rate Limiter
 
 ---
 
@@ -185,7 +184,7 @@ Deployment
 
 Current Objective
 
-Build the Redis Repository layer that abstracts all Redis operations behind a clean interface.
+Verify business logic before exposing REST APIs.
 
 Success Criteria
 

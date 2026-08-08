@@ -291,41 +291,91 @@ All higher layers communicate only with the repository.
 
 - One additional abstraction layer.
 
-# ADR-002
+# ADR 008
+Title
 
-## Title
+Verify Business Logic Before REST Integration
 
-Centralize Redis Key Generation
+Decision
 
-## Status
+The core rate limiting algorithm must be verified independently before exposing it through HTTP.
+
+Reason
+
+Separates business logic verification from web layer debugging and simplifies troubleshooting.
+
+Status
 
 Accepted
 
-## Context
+# ADR 009
+Title
 
-Redis keys are used throughout the application.
+Temporary Startup Verification
 
-Manually concatenating strings in multiple places risks inconsistent key naming and makes future changes difficult.
+Decision
 
-## Decision
+Use a CommandLineRunner for temporary verification during development.
 
-Introduce RedisKeyBuilder as a utility class responsible for generating Redis keys.
+Reason
 
-Services request keys from RedisKeyBuilder instead of constructing them manually.
+Allows isolated testing of the service layer without introducing controllers or HTTP concerns.
 
-## Consequences
+Status
 
-### Advantages
+Accepted
 
-- Consistent naming.
-- Single source of truth.
-- Easier future changes.
-- Fewer bugs caused by typos.
+# ADR 10    
 
-### Disadvantages
+Title
 
-- Small additional utility class.
+Use REST Controller for HTTP Layer
 
+Decision
+
+Expose the Rate Limiter through a dedicated REST Controller.
+
+Reason
+
+Separates HTTP responsibilities from business logic.
+
+## ADR 11
+Title
+
+Use DTOs for API Contracts
+
+Decision
+
+Introduce request and response DTOs.
+
+Reason
+
+Decouples external API contracts from internal business models.
+
+Status
+
+Accepted
+
+Status
+
+Accepted
+
+## ADR 12
+Title
+
+Use HTTP 429 for Rate Limit Violations
+
+Decision
+
+Return HTTP 429 Too Many Requests when the configured limit is exceeded.
+
+Reason
+
+Aligns with the HTTP specification and industry-standard REST API practices.
+
+Status
+
+Accepted
 # Future ADRs
 
 Examples

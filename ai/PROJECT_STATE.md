@@ -4,7 +4,7 @@
 
 # Current Sprint
 
-Sprint 3 – Core Rate Limiter
+Sprint 4 – REST API
 
 Status
 
@@ -14,91 +14,105 @@ Status
 
 # Current Phase
 
-Core Rate Limiter Completed
+Sprint 4 Completed
 
-Preparing for Verification
+Preparing for Sprint 5
 
 ---
 
 # Completed Tasks
 
-## Repository
+## Sprint 1
 
-- [x] Spring Boot project created
-- [x] Maven configured
-- [x] Clean package structure created
-- [x] Documentation folder created
-- [x] AI folder created
-- [x] Docker folder created
-- [x] Git repository initialized
-- [x] GitHub repository created
-- [x] Main branch created
-- [x] Develop branch created
-- [x] RedisKeyBuilder created
-- [x] RedisRepository implemented
-- [x] RateLimiterService implemented
-- [x] Fixed Window core algorithm completed
----
-
-## Documentation
-
-- [x] Problem Statement
-- [x] High-Level Design
-- [x] Low-Level Design
-- [x] API Contract
-- [x] Redis Data Model
-- [x] Algorithms
-- [x] Development Roadmap
-- [x] Test Plan
+- [x] Project initialization
+- [x] Documentation
+- [x] Architecture design
 
 ---
 
-## Infrastructure
+## Sprint 2
 
-- [x] Docker installation verified
-- [x] docker-compose.yml created
-- [x] Redis container running successfully
-- [x] Spring Boot Redis configuration completed
-- [x] Spring Boot successfully connected to Redis
-- [x] RedisTemplate auto-configured
-- [x] RedisConnectionVerifier created
-- [x] Redis SET operation verified
-- [x] Redis GET operation verified
+- [x] Docker setup
+- [x] Redis container
+- [x] Spring Boot ↔ Redis integration
+- [x] Redis configuration
+
+---
+
+## Sprint 3
+
+- [x] RedisKeyBuilder
+- [x] RedisRepository
+- [x] RateLimiterService
+- [x] Fixed Window implementation
+
+---
+
+## Sprint 4
+
+- [x] Created RateLimiterVerifier
+- [x] Verified request counting
+- [x] Verified request rejection
+- [x] Verified TTL expiration
+- [x] Verified Redis integration
+- [x] Created REST API
+- [x] Added Request DTO
+- [x] Added Response DTO
+- [x] Added RateLimiterController
+- [x] Returned HTTP 200 and HTTP 429
+- [x] Verified using Postman
+- [x] Removed temporary verification classes
 
 ---
 
 # Current Task
 
-Verify the Rate Limiter implementation.
+Prepare for input validation.
 
 ---
 
 # Next Tasks
 
-Sprint 4
+## Sprint 5
 
-- Verify RateLimiterService
-- Create temporary CommandLineRunner
-- Test Redis TTL
-- Verify request rejection
-- Create REST Controller
-- Create Request DTO
-
----
-
-# Known Issues
-
-None
+- Add request validation
+- Introduce Bean Validation
+- Validate userId
+- Handle validation failures
+- Global exception handling
 
 ---
 
 # Current Algorithm
 
-🟢 Fixed Window Implemented
+Fixed Window Counter
 
-Implementation Status
+Status
 
-🟡 Repository Layer Starting
+🟢 Verified
+
+---
+
+# Build Status
+
+- Project builds successfully.
+- Application starts successfully.
+- REST API verified.
+- Redis integration verified.
+- Fixed Window algorithm verified.
+
+---
+
+# Pending Features
+
+- Request Validation
+- Global Exception Handling
+- Externalized Configuration
+- Swagger/OpenAPI
+- Logging
+- Unit Tests
+- Integration Tests
+- Load Testing
 
 ---
 
@@ -108,47 +122,9 @@ develop
 
 ---
 
-# Last Stable Commit
-
-Complete Redis infrastructure setup and connectivity verification.
-
----
-
-# Build Status
-
-- Project builds successfully.
-- Redis integration completed.
-- Core Rate Limiter implemented.
-- Verification pending.
----
-
-# Pending Features
-
-
-- DTOs
-- Controller
-- Service Layer
-- Fixed Window Algorithm
-- Strategy Pattern implementation
-- Exception Handling
-- Swagger / OpenAPI
-- Unit Tests
-- Integration Tests
-- Load Testing
-- Docker Image
-- Docker Compose improvements
-
----
-
-# Blockers
-
-None
-
----
-
 # Next Milestone
 
-Verified Rate Limiter
+Production-ready Request Validation
 
 ---
 
@@ -156,23 +132,27 @@ Verified Rate Limiter
 
 Architecture
 
-🟢 Healthy
-
-Documentation
-
-🟢 Complete
+🟢 Excellent
 
 Infrastructure
 
-🟢 Complete
+🟢 Stable
 
-Implementation
+Business Logic
 
-🟡 Repository Layer Starting
+🟢 Verified
+
+REST API
+
+🟢 Completed
+
+Validation
+
+⚪ Not Started
 
 Testing
 
-⚪ Not Started
+🟡 Manual Verification Completed
 
 Deployment
 
@@ -182,53 +162,4 @@ Deployment
 
 # Current Focus
 
-Current Objective
-
-Verify business logic before exposing REST APIs.
-
-Success Criteria
-
-- Repository created.
-- RedisTemplate encapsulated.
-- Repository methods implemented.
-- Services no longer access RedisTemplate directly.
-
-Estimated Duration
-
-1 Development Session
-
----
-
-# Notes
-
-Current architecture
-
-Client
-
-↓
-
-Controller
-
-↓
-
-Service
-
-↓
-
-RedisRepository
-
-↓
-
-RedisTemplate
-
-↓
-
-Redis
-
-Infrastructure has been fully verified.
-
-Future development will focus on implementing business logic while keeping infrastructure concerns isolated behind the repository layer.
-
-All future Redis interactions must go through the RedisRepository.
-
-Direct usage of RedisTemplate outside the repository layer is discouraged.
+Improve API robustness through validation and exception handling.

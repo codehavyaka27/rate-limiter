@@ -57,3 +57,32 @@ Difference between Business Logic and Infrastructure Logic.
 (To be completed)
 
 ---
+
+# Sprint 4
+
+Q: What is CommandLineRunner?
+
+Q: When is CommandLineRunner executed?
+
+Q: Why verify the service layer before creating REST APIs?
+
+Q: Why should verification utilities be temporary?
+
+Q: Why is Thread.sleep() acceptable here but not inside a Service?
+
+
+# Sprint 4
+
+Q: Difference between @Controller and @RestController?
+
+Q: Why use DTOs?
+
+Q: Why use @RequestBody?
+
+Q: Why use ResponseEntity?
+
+Q: Why return HTTP 429 instead of HTTP 200?
+
+Q: Why shouldn't the Controller access Redis directly?
+
+Q: What responsibilities belong in a Controller?

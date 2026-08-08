@@ -94,3 +94,30 @@ RedisKeyBuilder
 Reason
 
 Separated business logic from infrastructure while centralizing Redis key generation.
+
+# Sprint 4 – Phase 1
+
+Changes
+
+- Added RateLimiterVerifier
+- Introduced startup verification workflow
+- Verified complete Fixed Window algorithm
+
+Reason
+
+Validate business logic independently before exposing external APIs.
+
+# Sprint 4 – REST API
+
+Changes
+
+- Added RateLimiterController
+- Added Request DTO
+- Added Response DTO
+- Introduced ResponseEntity
+- Added HTTP status handling
+- Removed temporary verification runners
+
+Result
+
+The application now exposes the Fixed Window algorithm through a REST API while preserving clean separation between presentation, business, and infrastructure layers.

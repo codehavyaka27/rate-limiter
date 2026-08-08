@@ -315,28 +315,191 @@ Completed:
 - Resolved all issues successfully.
 
 ---
+# Session 4
+
+Date
+
+2026-08-08
+
+Duration
+
+Sprint 4 – Phase 1
+
+---
+
+## Objective
+
+Verify the Fixed Window Rate Limiter implementation before exposing it through a REST API.
+
+---
+
+## Completed
+
+### Verification
+
+- Created RateLimiterVerifier
+- Simulated multiple requests
+- Verified request counting
+- Verified request rejection
+- Verified TTL expiration
+- Verified Redis key reset
+- Verified end-to-end algorithm
+
+---
+
+## Engineering Decisions
+
+- Verification should happen before REST API development.
+- Used CommandLineRunner as a temporary verification tool.
+- Verification logic should remain separate from production code.
+
+---
+
+## Lessons Learned
+
+- CommandLineRunner executes after Spring Boot finishes initialization.
+- Spring executes every CommandLineRunner bean automatically.
+- Verification code should never become production code.
+- Good console output improves debugging.
+- Always verify business logic before integrating additional layers.
+
+---
+
+## Issues Encountered
+
+- Minor improvements in console output formatting.
+- Initial verification code printed request numbers incorrectly.
+- TTL sleep duration corrected from 6.5 seconds to 65 seconds.
+
+---
+
+## Verification Results
+
+✅ Requests 1–5 allowed
+
+✅ Requests 6–7 rejected
+
+✅ TTL expired successfully
+
+✅ Counter reset correctly
+
+---
+
+## Session 4
+
+Date
+
+2026-08-08
+
+Duration
+
+Sprint 4 – REST API
+
+---
+
+## Objective
+
+Expose the verified Fixed Window algorithm through a REST API.
+
+---
+
+## Completed
+
+### API Design
+
+- Designed REST endpoint
+- Selected POST method
+- Introduced API versioning
+- Designed request and response DTOs
+
+---
+
+### Implementation
+
+Completed:
+
+- RateLimitRequest
+- RateLimitResponse
+- RateLimiterController
+- HTTP status handling using ResponseEntity
+
+---
+
+### Testing
+
+- Verified endpoint using Postman
+- Verified HTTP 200 responses
+- Verified HTTP 429 responses
+- Confirmed complete request lifecycle
+
+---
+
+### Cleanup
+
+- Removed RateLimiterVerifier
+- Removed RedisConnectionVerifier
+
+---
+
+## Engineering Decisions
+
+- Controller owns HTTP concerns only.
+- Service remains independent of HTTP.
+- Introduced ResponseEntity after HTTP status requirements emerged.
+- DTOs introduced to isolate API contracts from business logic.
+
+---
+
+## Lessons Learned
+
+- REST Controllers should orchestrate, not calculate.
+- ResponseEntity provides complete control over HTTP responses.
+- DTOs protect API contracts.
+- HTTP status codes should communicate API outcomes.
+- Controllers should never contain business logic.
+
+---
+
+## Issues Encountered
+
+- ResponseEntity return type mismatch.
+- Resolved by updating controller method signature.
+
+---
+
+## Verification Results
+
+✅ REST endpoint working
+
+✅ HTTP 200 returned for allowed requests
+
+✅ HTTP 429 returned after rate limit exceeded
+
+✅ End-to-end request flow verified
+
+---
 
 ## Next Session
 
-Sprint 4
+Sprint 5
 
 Objective
 
-Verify the Fixed Window algorithm.
+Introduce request validation and global exception handling.
 
 Tasks
 
-- Create temporary CommandLineRunner
-- Verify request counting
-- Verify TTL
-- Verify rejection after limit
-- Create REST Controller
+- Bean Validation
+- @Valid
+- @NotBlank
+- Exception Handling
+- ControllerAdvice
 
 ---
 
 ## Status
 
-🟢 Completed
+🟢 Sprint 4 Completed
 
 ---
 
@@ -348,4 +511,4 @@ develop
 
 Commit
 
-Sprint 3 - Core Rate Limiter Foundation
+Sprint 4 - REST API completed

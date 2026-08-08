@@ -73,3 +73,14 @@ Document important architectural decisions.
 Understand every line before writing the next.
 
 ---
+## Principle 11
+
+A package is a design decision, not just a folder.
+
+A package should answer:
+
+"What responsibility do these classes share?"
+
+Not:
+
+"Where can I put this file?"

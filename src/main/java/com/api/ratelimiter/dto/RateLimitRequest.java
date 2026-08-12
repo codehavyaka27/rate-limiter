@@ -1,7 +1,9 @@
 package com.api.ratelimiter.dto;
 
-public class RateLimitRequest {
+import jakarta.validation.constraints.NotBlank;
 
+public class RateLimitRequest {
+    @NotBlank(message = "userId cannot be blank")
     private String userId;
 
     public RateLimitRequest() {

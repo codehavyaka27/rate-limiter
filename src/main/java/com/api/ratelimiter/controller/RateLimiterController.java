@@ -3,6 +3,7 @@ package com.api.ratelimiter.controller;
 import com.api.ratelimiter.dto.RateLimitRequest;
 import com.api.ratelimiter.dto.RateLimitResponse;
 import com.api.ratelimiter.service.RateLimiterService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class RateLimiterController {
     }
 
     @PostMapping("/rate-limit")
-    public ResponseEntity<RateLimitResponse> checkRateLimit(@RequestBody RateLimitRequest request) {
+    public ResponseEntity<RateLimitResponse> checkRateLimit( @Valid @RequestBody RateLimitRequest request) {
 
         boolean allowed = rateLimiterService.allowRequest(request.getUserId());
 
@@ -34,5 +35,6 @@ public class RateLimiterController {
                 .status(HttpStatus.TOO_MANY_REQUESTS)
                 .body(new RateLimitResponse(false));
     }
+
 
 }

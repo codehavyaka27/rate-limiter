@@ -520,7 +520,156 @@ Created:
 
 The API returns a simple JSON response:
 
-```json
+json
 {
     "message": "userId cannot be blank"
 }
+
+# Session 9
+
+Date
+
+2026-08-20
+
+Duration
+
+Sprint 9 – Swagger/OpenAPI
+
+---
+
+## Objective
+
+Add interactive API documentation using OpenAPI and Swagger UI.
+
+---
+
+## Completed
+
+### OpenAPI Integration
+
+- Added Springdoc OpenAPI dependency.
+- Configured Swagger UI.
+- Verified Swagger UI is available.
+
+---
+
+### API Documentation
+
+Created:
+
+- OpenAPI configuration
+- API title
+- API version
+- API description
+
+Documented:
+
+- `POST /api/v1/rate-limit`
+- Request body
+- `RateLimitRequest`
+- `RateLimitResponse`
+- `ErrorResponse`
+
+---
+
+### HTTP Responses
+
+Documented:
+
+- HTTP 200 – Request allowed
+- HTTP 400 – Invalid request
+- HTTP 429 – Rate limit exceeded
+- HTTP 500 – Internal server error
+
+---
+
+### Swagger Verification
+
+Verified:
+
+- Swagger UI loads successfully.
+- API endpoint appears in Swagger UI.
+- Request schema appears correctly.
+- Response schemas appear correctly.
+- API can be executed directly from Swagger UI.
+- Valid requests return HTTP 200.
+- Rate-limited requests return HTTP 429.
+- Invalid requests return HTTP 400.
+
+---
+
+## Engineering Decisions
+
+- Springdoc OpenAPI selected for API documentation.
+- Swagger configuration kept separate from business logic.
+- OpenAPI annotations used only where additional documentation was required.
+- Meaningful API behavior documented instead of implementation details.
+- Swagger UI used as both API documentation and an interactive testing interface.
+
+---
+
+## Issues Encountered
+
+- Initially attempted an incompatible Springdoc 3.x dependency with Spring Boot 3.5.5.
+- Springdoc 2.8.13 was selected after identifying the Spring Boot version compatibility.
+- Maven wrapper was used because Maven was not available as a global command.
+- Build and test suite completed successfully after correcting the dependency.
+
+---
+
+## Verification Results
+
+✅ Swagger UI available
+
+✅ OpenAPI metadata displayed
+
+✅ Request schema displayed
+
+✅ Response schemas displayed
+
+✅ HTTP 200 verified
+
+✅ HTTP 400 verified
+
+✅ HTTP 429 verified
+
+---
+
+## Next Session
+
+Sprint 10
+
+Objective
+
+Containerize the Spring Boot application.
+
+Tasks
+
+- Create application Dockerfile
+- Configure application container
+- Update Docker Compose
+- Connect Spring Boot container to Redis container
+- Verify container-to-container communication
+- Test API inside Docker environment
+
+---
+
+## Status
+
+🟢 Sprint 9 Completed
+
+---
+
+## Git Information
+
+Branch
+
+develop
+
+Commit
+
+Pending
+
+Reason
+
+Sprint 9 Swagger/OpenAPI implementation and documentation are ready to be committed.

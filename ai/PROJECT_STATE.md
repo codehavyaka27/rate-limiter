@@ -1,10 +1,9 @@
 # PROJECT STATE
 
 ---
-
 # Current Sprint
 
-Sprint 8 – Integration Testing
+Sprint 9 – Swagger/OpenAPI
 
 Status
 
@@ -14,12 +13,11 @@ Status
 
 # Current Phase
 
-Sprint 8 – Integration Testing Completed
+Sprint 9 – Swagger/OpenAPI Completed
 
-Preparing for Swagger/OpenAPI
+Preparing for Sprint 10 – Containerization
 
 ---
-
 # Completed Tasks
 
 ## Sprint 1
@@ -165,6 +163,33 @@ Status
 
 Configuration
 
-```text
+
 Maximum Requests: 5
 Window: 1 minute
+
+## Sprint 9 – Swagger/OpenAPI
+
+- [x] Added Springdoc OpenAPI dependency
+- [x] Configured Swagger UI
+- [x] Added OpenAPI API metadata
+- [x] Documented rate limiter endpoint
+- [x] Documented request schema
+- [x] Documented response schemas
+- [x] Documented HTTP 200 response
+- [x] Documented HTTP 400 response
+- [x] Documented HTTP 429 response
+- [x] Documented HTTP 500 response
+- [x] Verified Swagger UI
+- [x] Tested API through Swagger UI
+
+# Next Milestone
+
+# Pending Features
+
+- Containerize Spring Boot application
+- CI/CD
+- Load Testing
+- Production configuration
+- Deployment
+- Monitoring/observability improvements
+Containerized Application

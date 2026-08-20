@@ -1,7 +1,10 @@
 package com.api.ratelimiter.dto;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 public class RateLimitResponse {
-
+    @Schema(
+            description = "Whether the request is allowed",
+            example = "true"
+    )
     private boolean allowed;
 
     public RateLimitResponse() {

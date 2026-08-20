@@ -4,7 +4,7 @@
 
 # Current Sprint
 
-Sprint 7 – Automated Testing
+Sprint 8 – Integration Testing
 
 Status
 
@@ -14,9 +14,9 @@ Status
 
 # Current Phase
 
-Sprint 7 – Unit & Controller Testing Completed
+Sprint 8 – Integration Testing Completed
 
-Preparing for Integration Testing
+Preparing for Swagger/OpenAPI
 
 ---
 
@@ -139,6 +139,19 @@ Preparing for Integration Testing
 - [x] Controller tests passing
 - [x] Full test suite passing
 - [x] 8 automated tests passing
+
+## Sprint 8 – Integration Testing
+
+- [x] Created `RateLimiterIntegrationTest`
+- [x] Verified Spring application context loads
+- [x] Configured MockMvc with real Spring context
+- [x] Tested real Controller → Service → Repository → Redis flow
+- [x] Tested allowed request using real Redis
+- [x] Tested request rejection after rate limit is exceeded
+- [x] Tested Redis TTL expiration
+- [x] Verified counter resets after the window expires
+- [x] Added test-specific rate limiter configuration
+- [x] Verified integration tests with Docker Redis
 
 ---
 

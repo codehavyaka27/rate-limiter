@@ -3,7 +3,7 @@
 ---
 # Current Sprint
 
-Sprint 9 – Swagger/OpenAPI
+Sprint 10 – Containerization
 
 Status
 
@@ -13,10 +13,9 @@ Status
 
 # Current Phase
 
-Sprint 9 – Swagger/OpenAPI Completed
+Sprint 10 – Containerization Completed
 
-Preparing for Sprint 10 – Containerization
-
+Preparing for Sprint 11 – CI/CD
 ---
 # Completed Tasks
 
@@ -193,3 +192,30 @@ Window: 1 minute
 - Deployment
 - Monitoring/observability improvements
 Containerized Application
+
+## Sprint 10 – Containerization
+
+- [x] Created application Dockerfile
+- [x] Built Spring Boot production JAR
+- [x] Built Docker image
+- [x] Added Spring Boot service to Docker Compose
+- [x] Configured Spring Boot container to connect to Redis
+- [x] Added Redis healthcheck
+- [x] Added Redis health-based startup dependency
+- [x] Verified container-to-container communication
+- [x] Verified API through Docker
+- [x] Verified rate limiting inside Docker
+- [x] Verified HTTP 429 inside Docker
+
+# Pending Features
+
+- CI/CD
+- Load Testing
+- Production configuration
+- Deployment
+- Monitoring/observability improvements
+
+
+# Next Milestone
+
+CI/CD Pipeline

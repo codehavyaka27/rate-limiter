@@ -673,3 +673,72 @@ Pending
 Reason
 
 Sprint 9 Swagger/OpenAPI implementation and documentation are ready to be committed.
+
+
+# Session 10
+
+Date
+
+2026-08-21
+
+Duration
+
+Sprint 10 – Containerization
+
+---
+
+## Objective
+
+Containerize the Spring Boot application and run it together with Redis using Docker Compose.
+
+---
+
+## Completed
+
+### Application Container
+
+Created:
+
+- Dockerfile
+
+Configured:
+
+- Java 21 runtime
+- Spring Boot JAR
+- Application working directory
+- Container port 8080
+
+---
+
+### Docker Image
+
+- Built Spring Boot production JAR.
+- Created Docker image `rate-limiter:1.0`.
+- Verified image build successfully.
+
+---
+
+### Docker Compose
+
+Updated:
+
+- `Docker/docker-compose.yml`
+
+Added:
+
+- Spring Boot application service
+- Redis service
+- Docker networking
+- Environment-based Redis configuration
+- Redis healthcheck
+- Health-based application startup dependency
+
+---
+
+### Redis Configuration
+
+Local configuration remains:
+
+```properties
+spring.data.redis.host=localhost
+spring.data.redis.port=6379

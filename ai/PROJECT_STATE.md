@@ -3,7 +3,7 @@
 ---
 # Current Sprint
 
-Sprint 10 – Containerization
+Sprint 11 – CI/CD
 
 Status
 
@@ -13,9 +13,9 @@ Status
 
 # Current Phase
 
-Sprint 10 – Containerization Completed
+Sprint 11 – CI/CD Completed
 
-Preparing for Sprint 11 – CI/CD
+Preparing for Sprint 12 – Production Configuration & Deployment
 ---
 # Completed Tasks
 
@@ -219,3 +219,24 @@ Containerized Application
 # Next Milestone
 
 CI/CD Pipeline
+
+---
+
+## Sprint 11 – CI/CD
+
+- [x] Created GitHub Actions workflow
+- [x] Configured CI for the `develop` branch
+- [x] Configured Java 21
+- [x] Configured Maven dependency caching
+- [x] Added Redis service container
+- [x] Automated unit tests
+- [x] Automated integration tests
+- [x] Verified 12 tests passing in CI
+- [x] Added Maven package step
+- [x] Added Docker image build step
+- [x] Verified Docker image builds successfully in CI
+
+
+# Next Milestone
+
+Production Deployment

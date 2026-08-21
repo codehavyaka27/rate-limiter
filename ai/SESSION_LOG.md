@@ -739,6 +739,90 @@ Added:
 
 Local configuration remains:
 
-```properties
+properties
 spring.data.redis.host=localhost
 spring.data.redis.port=6379
+
+# Session 11
+
+Date
+
+2026-08-21
+
+Duration
+
+Sprint 11 – CI/CD
+
+---
+
+## Objective
+
+Create an automated CI pipeline that verifies the application and Docker build on every push to the develop branch.
+
+---
+
+## Completed
+
+### GitHub Actions
+
+Created:
+
+- `.github/workflows/ci.yml`
+
+Configured:
+
+- Push trigger for `develop`
+- Pull request trigger for `develop`
+- Ubuntu runner
+- Java 21
+- Maven dependency caching
+
+---
+
+### Automated Testing
+
+Configured:
+
+- Maven automated test execution
+- Redis service container for integration tests
+
+Verified:
+
+- Unit tests run successfully
+- Integration tests run successfully
+- 12 tests passing in GitHub Actions
+
+---
+
+### Application Build
+
+Configured:
+
+- Maven package step
+- Production JAR generation
+
+---
+
+### Docker Build
+
+Configured:
+
+- Docker image build inside CI
+- `rate-limiter:ci` image
+
+Verified:
+
+- Docker image builds successfully in GitHub Actions
+
+---
+
+## Issues Encountered
+
+### Maven Wrapper Permission
+
+GitHub Linux runner initially returned:
+
+```text
+Permission denied
+
+

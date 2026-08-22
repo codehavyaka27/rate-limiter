@@ -3,7 +3,7 @@
 ---
 # Current Sprint
 
-Sprint 11 – CI/CD
+Sprint 12 – Production Deployment
 
 Status
 
@@ -13,9 +13,9 @@ Status
 
 # Current Phase
 
-Sprint 11 – CI/CD Completed
+Sprint 12 – Production Deployment Completed
 
-Preparing for Sprint 12 – Production Configuration & Deployment
+Preparing for Sprint 13 – Load Testing & Performance Benchmarking
 ---
 # Completed Tasks
 
@@ -236,6 +236,33 @@ CI/CD Pipeline
 - [x] Added Docker image build step
 - [x] Verified Docker image builds successfully in CI
 
+## Sprint 12 – Production Configuration & Deployment
+
+- [x] Externalized Redis configuration
+- [x] Externalized server configuration
+- [x] Externalized rate limiter configuration
+- [x] Added environment-based configuration for Docker
+- [x] Created multi-stage production Dockerfile
+- [x] Verified Docker image builds without requiring local `target/`
+- [x] Created Render Key Value datastore
+- [x] Deployed Spring Boot application to Render
+- [x] Connected deployed application to remote Redis
+- [x] Verified live REST API
+- [x] Verified live rate limiting
+- [x] Verified HTTP 429 behavior
+
+# Next Milestone
+
+Load Testing & Performance Benchmarking
+
+
+# Pending Features
+
+- Load Testing
+- Performance Benchmarking
+- Production Health Endpoint
+- Monitoring/Observability improvements
+- Advanced Rate Limiting Strategies
 
 # Next Milestone
 

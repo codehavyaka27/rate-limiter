@@ -822,7 +822,98 @@ Verified:
 
 GitHub Linux runner initially returned:
 
-```text
+text
 Permission denied
 
+# Session 12
+
+Date
+
+2026-08-22
+
+Duration
+
+Sprint 12 – Production Configuration & Deployment
+
+---
+
+## Objective
+
+Prepare the rate limiter for deployment by externalizing configuration, creating a production-ready Docker image, and deploying the application with a remote Redis datastore.
+
+---
+
+## Completed
+
+### Production Configuration
+
+Externalized:
+
+- Redis host
+- Redis port
+- Server port
+- Maximum request limit
+- Rate limit window
+
+Implemented environment variable configuration with local defaults.
+
+---
+
+### Docker
+
+Replaced the original Dockerfile with a multi-stage build.
+
+Build stage:
+
+- Maven
+- Java 21
+- Application compilation
+- JAR generation
+
+Runtime stage:
+
+- Java 21 JRE
+- Spring Boot JAR
+
+Verified the Docker image builds without requiring the `target` directory to be committed to Git.
+
+---
+
+### Render Deployment
+
+Created:
+
+- Render Web Service
+- Render Key Value datastore
+
+Configured:
+
+- Spring Boot application
+- Remote Redis connection
+- Environment variables
+- Docker-based deployment
+
+---
+
+### Production Verification
+
+Verified:
+
+- Render deployment completed successfully.
+- Spring Boot application started successfully.
+- Application connected to remote Redis.
+- Live REST API is accessible.
+- Rate limiter works against remote Redis.
+- HTTP 429 is returned after the configured limit is exceeded.
+
+---
+
+## Issues Encountered
+
+### Root URL
+
+Accessing `/` produced:
+
+```text
+NoResourceFoundException
 

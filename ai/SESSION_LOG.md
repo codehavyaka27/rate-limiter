@@ -970,7 +970,102 @@ Repeated 10,000-request runs produced different throughput values, so the conser
 
 🟢 Sprint 13 Completed
 
-## Next Session
+
+# Session 14
+
+Date
+
+2026-08-23
+
+Duration
 
 Sprint 14 – Observability & Production Readiness
 
+---
+
+## Objective
+
+Improve the rate limiter's production readiness by adding observability, application metadata, custom metrics, environment-based configuration, Docker Compose improvements, performance verification, and project documentation.
+
+---
+
+## Completed
+
+### Actuator
+
+- [x] Added Spring Boot Actuator
+- [x] Exposed `/actuator/health`
+- [x] Exposed `/actuator/info`
+- [x] Exposed `/actuator/prometheus`
+- [x] Verified Actuator endpoints
+- [x] Verified Redis health through Actuator
+- [x] Changed health detail exposure from `always` to `never`
+
+---
+
+### Application Information
+
+- [x] Added application name
+- [x] Added application description
+- [x] Added application version
+- [x] Enabled environment-based Actuator information
+- [x] Verified `/actuator/info`
+
+Current application metadata:
+
+ext
+Name: Distributed API Rate Limiter
+Description: Redis-backed API rate limiting microservice
+Version: 1.0.0
+
+
+completed tasks:
+
+Core Rate Limiter              ✅
+Redis Integration              ✅
+REST API                       ✅
+Validation                     ✅
+Error Handling                 ✅
+Logging                        ✅
+Unit Testing                   ✅
+Integration Testing            ✅
+Swagger/OpenAPI                ✅
+Docker                         ✅
+Docker Compose                 ✅
+CI/CD                          ✅
+Render Deployment              ✅
+JMeter Benchmarking            ✅
+Actuator                       ✅
+Micrometer/Prometheus          ✅
+Custom Metrics                 ✅
+Environment Configuration      ✅
+README                         ✅
+
+
+Next Session
+Sprint 15 – Distributed Consistency Verification
+Objective
+
+Demonstrate that multiple Spring Boot application instances connected to the same Redis instance maintain consistent rate-limit state.
+
+Target architecture:
+
+                    Redis
+               Shared Rate State
+                      ^
+                      |
+          +-----------+-----------+
+          |           |           |
+          v           v           v
+       App #1       App #2      App #3
+Planned Tasks
+Run multiple Spring Boot application instances
+Connect all instances to the same Redis
+Send requests through different application instances
+Verify the Redis counter is shared
+Verify the configured limit is shared
+Verify consistent HTTP 429 enforcement
+Test expiration/reset behavior across instances
+Test concurrent traffic across instances
+Document the distributed behavior
+Update README with verified distributed architecture

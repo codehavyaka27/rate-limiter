@@ -1,5 +1,5 @@
 package com.api.ratelimiter.service;
-
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import com.api.ratelimiter.repository.RedisRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +28,12 @@ public class RateLimiterServiceTest {
 
     @BeforeEach
     void setUp() {
-        rateLimiterService =
-                new RateLimiterService(
-                        redisRepository,
-                        5,
-                        Duration.ofMinutes(1)
-                );
+        rateLimiterService = new RateLimiterService(
+                redisRepository,
+                5,
+                Duration.ofMinutes(1),
+                new SimpleMeterRegistry()
+        );
     }
 
     @Test

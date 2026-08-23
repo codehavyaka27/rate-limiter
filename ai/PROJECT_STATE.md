@@ -251,15 +251,58 @@ CI/CD Pipeline
 - [x] Verified live rate limiting
 - [x] Verified HTTP 429 behavior
 
-# Next Milestone
+## Sprint 13 – Load Testing & Performance Benchmarking
 
-Load Testing & Performance Benchmarking
+Status: 🟢 Completed
+
+### Load Testing
+
+- [x] Installed Apache JMeter 5.6.3
+- [x] Created JMeter load-test plan
+- [x] Tested rate-limit enforcement with concurrent requests
+- [x] Added per-request UUID generation for unique rate-limit identities
+- [x] Benchmarked 1,000 requests
+- [x] Benchmarked 5,000 requests
+- [x] Benchmarked 10,000 requests
+- [x] Tested up to 200 concurrent users
+- [x] Verified 0% errors in clean performance benchmarks
+- [x] Measured throughput and latency under increasing load
+
+### Measured Results
+
+| Requests | Concurrent Users | Throughput | Avg Latency | Error Rate |
+|---:|---:|---:|---:|---:|
+| 1,000 | 50 | ~201 req/s | 3 ms | 0% |
+| 5,000 | 100 | ~499 req/s | 7 ms | 0% |
+| 10,000 | 200 | ~1,734–2,101 req/s | 61–76 ms | 0% |
+
+### Benchmark Environment
+
+- Apache JMeter 5.6.3
+- Spring Boot application
+- Redis 7
+- Docker Compose
+- Local development environment
+- HTTP POST rate-limit endpoint
+
+### Benchmark Notes
+
+The 10,000-request benchmark produced approximately 1.7K–2.1K requests/sec across repeated runs with 0% errors under 200 concurrent users.
+
+These results represent observed performance in the local Docker/JMeter environment and are not treated as the production capacity of the service.
+
+---
+
+## Next Milestone
+
+Sprint 14 – Observability & Production Readiness
+
+
 
 
 # Pending Features
 
-- Load Testing
-- Performance Benchmarking
+
 - Production Health Endpoint
 - Monitoring/Observability improvements
 - Advanced Rate Limiting Strategies

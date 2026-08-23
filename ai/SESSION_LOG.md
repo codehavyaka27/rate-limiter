@@ -914,6 +914,63 @@ Verified:
 
 Accessing `/` produced:
 
-```text
+text
 NoResourceFoundException
+
+# Session 13
+
+Date
+
+2026-08-23
+
+## Objective
+
+Benchmark the Redis-backed rate limiter under concurrent load and obtain real performance measurements.
+
+## Completed
+
+- Installed Apache JMeter 5.6.3.
+- Created a JMeter load-test plan.
+- Verified rate-limit enforcement with repeated requests.
+- Identified intentional HTTP 429 responses during same-user testing.
+- Configured per-request UUID generation to isolate performance testing from rate-limit rejection.
+- Executed 1,000-request benchmark.
+- Executed 5,000-request benchmark.
+- Executed 10,000-request benchmark.
+- Tested up to 200 concurrent users.
+- Achieved 0% errors during clean performance benchmarks.
+
+## Benchmark Results
+
+1,000 requests:
+- 50 concurrent users
+- ~201 req/s
+- 3 ms average latency
+- 0% errors
+
+5,000 requests:
+- 100 concurrent users
+- ~499 req/s
+- 7 ms average latency
+- 0% errors
+
+10,000 requests:
+- 200 concurrent users
+- ~1,734–2,101 req/s across repeated runs
+- 61–76 ms average latency
+- 0% errors
+
+## Key Finding
+
+The system sustained more than 1.7K requests/sec in the local Docker/JMeter environment under 200 concurrent users.
+
+Repeated 10,000-request runs produced different throughput values, so the conservative observed range of approximately 1.7K–2.1K requests/sec is used instead of claiming a fixed maximum capacity.
+
+## Status
+
+🟢 Sprint 13 Completed
+
+## Next Session
+
+Sprint 14 – Observability & Production Readiness
 

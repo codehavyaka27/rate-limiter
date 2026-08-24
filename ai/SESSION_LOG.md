@@ -522,8 +522,10 @@ The API returns a simple JSON response:
 
 json
 {
-    "message": "userId cannot be blank"
+"message": "userId cannot be blank"
 }
+
+---
 
 # Session 9
 
@@ -743,6 +745,7 @@ properties
 spring.data.redis.host=localhost
 spring.data.redis.port=6379
 
+
 # Session 11
 
 Date
@@ -824,6 +827,7 @@ GitHub Linux runner initially returned:
 
 text
 Permission denied
+
 
 # Session 12
 
@@ -917,6 +921,7 @@ Accessing `/` produced:
 text
 NoResourceFoundException
 
+
 # Session 13
 
 Date
@@ -943,18 +948,21 @@ Benchmark the Redis-backed rate limiter under concurrent load and obtain real pe
 ## Benchmark Results
 
 1,000 requests:
+
 - 50 concurrent users
 - ~201 req/s
 - 3 ms average latency
 - 0% errors
 
 5,000 requests:
+
 - 100 concurrent users
 - ~499 req/s
 - 7 ms average latency
 - 0% errors
 
 10,000 requests:
+
 - 200 concurrent users
 - ~1,734–2,101 req/s across repeated runs
 - 61–76 ms average latency
@@ -1013,13 +1021,485 @@ Improve the rate limiter's production readiness by adding observability, applica
 
 Current application metadata:
 
-ext
+```text
 Name: Distributed API Rate Limiter
 Description: Redis-backed API rate limiting microservice
 Version: 1.0.0
+Micrometer & Prometheus
+ Added Micrometer Prometheus registry
+ Exposed Prometheus metrics
+ Verified /actuator/prometheus
+ Verified JVM metrics
+ Verified HTTP metrics
+ Verified Redis/Lettuce metrics
+ Verified process metrics
+Custom Rate Limiter Metrics
 
+Added custom counters:
 
-completed tasks:
+rate_limiter_requests_total{result="allowed"}
+rate_limiter_requests_total{result="rejected"}
+
+Completed:
+
+ Added allowed request counter
+ Added rejected request counter
+ Added result label
+ Incremented allowed counter for successful requests
+ Incremented rejected counter for rate-limited requests
+ Verified metrics through /actuator/prometheus
+ Avoided user IDs as metric labels to prevent high-cardinality metrics
+Rate Limiter Verification After Metrics
+ Verified requests within limit return HTTP 200
+ Verified requests beyond limit return HTTP 429
+ Verified Redis counter continues to work
+ Verified rate-limit enforcement remains correct
+Test Updates
+
+Adding MeterRegistry to RateLimiterService changed its constructor.
+
+ Updated RateLimiterServiceTest
+ Added SimpleMeterRegistry to the test
+ Restored test compilation
+ Verified Maven tests pass
+Environment-Based Configuration
+
+Supported variables:
+
+REDIS_HOST
+REDIS_PORT
+SERVER_PORT
+RATE_LIMIT_MAX_REQUESTS
+RATE_LIMIT_WINDOW
+
+Current defaults:
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+SERVER_PORT=8080
+RATE_LIMIT_MAX_REQUESTS=5
+RATE_LIMIT_WINDOW=1m
+
+Completed:
+
+ Redis host externalized
+ Redis port externalized
+ Server port externalized
+ Maximum request limit externalized
+ Rate-limit window externalized
+ Verified local defaults
+ Verified Docker environment variables
+ Verified application behavior after configuration changes
+Docker Compose Improvement
+
+The original Docker Compose configuration referenced a pre-built image.
+
+Changed the application service to build the image directly from the repository Dockerfile.
+
+Completed:
+
+ Removed dependency on manually pre-built application image
+ Configured Docker Compose build
+ Verified application image builds automatically
+ Verified Redis starts successfully
+ Verified Redis healthcheck
+ Verified application waits for Redis health
+ Verified application starts successfully
+ Verified API after rebuild
+ Verified Actuator after rebuild
+
+This makes the Docker setup more reproducible for a fresh repository clone.
+
+Docker Verification
+
+Verified:
+
+rate-limiter-app     Up
+rate-limiter-redis   Up (healthy)
+
+Verified after the Docker Compose changes:
+
+ /actuator/health
+ /actuator/info
+ Rate-limit API
+ Redis connectivity
+ HTTP 429 enforcement
+JMeter Verification
+
+Apache JMeter 5.6.3 was used for load testing.
+
+Completed:
+
+ Created JMeter load-test plan
+ Configured concurrent users
+ Configured request execution
+ Configured unique request identities for clean throughput testing
+ Verified Summary Report
+ Verified View Results Tree
+ Investigated JMeter result-file overwrite prompts
+ Completed successful load tests
+CI/CD Verification
+
+Existing GitHub Actions workflow was inspected and verified.
+
+Current workflow:
+
+Checkout Repository
+        |
+        v
+Setup Java 21
+        |
+        v
+Start Redis Service
+        |
+        v
+Run Maven Tests
+        |
+        v
+Build Spring Boot Application
+        |
+        v
+Build Docker Image
+
+Completed:
+
+ Inspected .github/workflows/ci.yml
+ Verified Java 21 setup
+ Verified Redis service
+ Verified Maven test execution
+ Verified application build
+ Verified Docker image build
+ Verified GitHub Actions CI is GREEN
+README
+
+Created a comprehensive root-level README.md.
+
+Documented:
+
+ Project overview
+ Features
+ Architecture
+ Fixed Window algorithm
+ API
+ Configuration
+ Local setup
+ Docker setup
+ Monitoring
+ Prometheus metrics
+ Performance benchmarks
+ Testing
+ CI/CD
+ Deployment
+ Tech stack
+ Project structure
+ Future improvements
+
+README was committed and pushed to the develop branch.
+
+Engineering Decisions
+Observability
+
+Micrometer counters were used for business-level rate-limit metrics.
+
+User IDs were deliberately not used as metric labels because that could create high-cardinality metrics.
+
+Configuration
+
+Environment variables are used for deployment-specific configuration while retaining local defaults for development.
+
+This allows the same application to run locally, inside Docker, and on Render without changing application source code.
+
+Docker Compose
+
+Docker Compose now builds the application image directly from the repository Dockerfile.
+
+This improves reproducibility because a developer does not need to manually build an application image before starting the stack.
+
+Performance Reporting
+
+Only observed benchmark results are documented.
+
+The project does not claim a fixed production throughput based on local benchmarks.
+
+Algorithm Scope
+
+The implemented algorithm remains:
+
+Fixed Window Counter
+
+Token Bucket and Leaky Bucket are not implemented.
+
+They remain future possibilities rather than current features.
+
+Distributed Architecture
+
+The rate-limit state is stored in Redis rather than local application memory.
+
+Multiple application instances can therefore share the same rate-limit state when connected to the same Redis instance.
+
+Explicit multi-instance verification was performed in Sprint 15.
+
+Problems Encountered
+JMeter Result File Overwrite
+
+JMeter repeatedly displayed a prompt asking whether an existing result file should be overwritten.
+
+Investigated the result collector configuration and successfully completed the load tests.
+
+Metrics Constructor Change
+
+Adding MeterRegistry to RateLimiterService caused the existing unit test constructor call to fail.
+
+The test was updated to provide a SimpleMeterRegistry.
+
+Maven tests then passed successfully.
+
+/actuator/info Initially Returned Empty JSON
+
+Initially:
+
+{}
+
+was returned from:
+
+/actuator/info
+
+Added:
+
+management.info.env.enabled=true
+
+After rebuilding the Docker image, /actuator/info returned the expected application metadata.
+
+Docker Compose Image Dependency
+
+The original Docker Compose setup required a manually built application image.
+
+Changed the Compose configuration to use Docker's build functionality.
+
+Verified that:
+
+docker compose ... up -d --build
+
+builds and starts the complete stack successfully.
+
+Session 15
+
+Date
+
+2026-08-24
+
+Duration
+
+Sprint 15 – Distributed Consistency Verification
+
+Objective
+
+Demonstrate that multiple Spring Boot application instances connected to the same Redis instance maintain consistent rate-limit state.
+
+Completed
+Distributed Docker Environment
+
+Created a separate test configuration:
+
+Docker/docker-compose-distributed.yml
+
+The distributed test environment contains:
+
+                    Redis
+              Shared Rate State
+                  redis:6379
+                 /          \
+                /            \
+               v              v
+        Rate Limiter #1   Rate Limiter #2
+          localhost:8080   localhost:8081
+
+Configured:
+
+ Redis container
+ Rate Limiter application instance #1
+ Rate Limiter application instance #2
+ Shared Redis network
+ Shared Redis datastore
+ Application #1 exposed on host port 8080
+ Application #2 exposed on host port 8081
+ Both application instances configured to use REDIS_HOST=redis
+ Both application instances configured to use REDIS_PORT=6379
+ Redis healthcheck
+ Health-based application startup dependency
+Distributed Consistency Test 1
+
+Test:
+
+App #1 → 5 requests
+App #2 → 6th request
+
+Results:
+
+App #1 Request 1 → allowed
+App #1 Request 2 → allowed
+App #1 Request 3 → allowed
+App #1 Request 4 → allowed
+App #1 Request 5 → allowed
+App #2 Request 6 → HTTP 429
+
+Result:
+
+🟢 Passed
+
+This proves that App #2 observed the rate-limit counter created by App #1.
+
+If each application had maintained an independent in-memory counter, App #2 would have allowed its first request.
+
+Distributed Consistency Test 2
+
+Test:
+
+App #2 → 5 requests
+App #1 → 6th request
+
+Results:
+
+App #2 Request 1 → allowed
+App #2 Request 2 → allowed
+App #2 Request 3 → allowed
+App #2 Request 4 → allowed
+App #2 Request 5 → allowed
+App #1 Request 6 → HTTP 429
+
+Result:
+
+🟢 Passed
+
+This proves the shared-state behavior works in the reverse direction as well.
+
+Redis State Verification
+
+The Redis key format was verified from:
+
+src/main/java/com/api/ratelimiter/util/RedisKeyBuilder.java
+
+Current key format:
+
+rate:user:<userId>
+
+A fresh Redis key was created and inspected directly.
+
+Observed:
+
+Key:
+rate:user:redis-check-224246
+
+Value:
+1
+
+TTL:
+30 seconds
+
+Result:
+
+🟢 Passed
+
+This directly verifies:
+
+Redis contains the rate-limit state.
+The request counter is stored in Redis.
+Redis TTL is applied to rate-limit keys.
+Redis automatically removes expired rate-limit keys.
+
+The earlier empty KEYS result occurred because the 1-minute rate-limit window had already expired before Redis was inspected.
+
+Distributed Architecture Verification
+
+Verified architecture:
+
+                         Redis
+                    Shared Rate State
+                         |
+             +-----------+-----------+
+             |                       |
+             v                       v
+        Application             Application
+        Instance #1             Instance #2
+        Port 8080               Port 8081
+
+Verified behavior:
+
+App #1
+   |
+   +----> Shared Redis Counter
+                    ^
+                    |
+App #2 -------------+
+
+Both application instances share the same per-user rate-limit counter.
+
+Lessons Learned
+Multiple application instances do not need local rate-limit state.
+Redis provides the shared state required for consistent rate limiting across instances.
+Port mappings can differ while both application containers continue listening on port 8080 internally.
+A separate distributed test Compose file allows distributed behavior to be verified without changing the normal single-instance deployment.
+Redis TTL behavior can only be observed while the rate-limit key is still alive.
+Direct Redis inspection is useful for validating application-level assumptions.
+Distributed architecture should be explicitly tested rather than claimed based only on design.
+Engineering Decisions
+Separate Distributed Test Compose File
+
+Created:
+
+Docker/docker-compose-distributed.yml
+
+instead of modifying the normal Docker Compose file.
+
+Reason:
+
+Preserve the normal single-instance development/deployment setup.
+Avoid introducing unnecessary complexity into the primary Compose configuration.
+Provide a reproducible environment specifically for distributed consistency testing.
+Shared Redis
+
+Both application instances use:
+
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+This ensures both instances operate on the same Redis datastore.
+
+Host Port Mapping
+
+Application #1:
+
+localhost:8080 → container:8080
+
+Application #2:
+
+localhost:8081 → container:8080
+
+Both containers continue using port 8080 internally.
+
+Only the host ports differ.
+
+Verification Results
+ Multiple application containers started successfully
+ Redis container started successfully
+ Redis reported healthy
+ Application #1 started successfully
+ Application #2 started successfully
+ App #1 → App #2 shared counter verified
+ App #2 → App #1 shared counter verified
+ HTTP 429 enforcement verified across instances
+ Redis rate-limit key verified
+ Redis counter value verified
+ Redis TTL verified
+ Redis expiration behavior verified
+ Distributed rate-limit consistency verified
+Status
+
+🟢 Sprint 15 Completed
+
+Current Project Position
+
+The project currently has:
 
 Core Rate Limiter              ✅
 Redis Integration              ✅
@@ -1040,32 +1520,81 @@ Micrometer/Prometheus          ✅
 Custom Metrics                 ✅
 Environment Configuration      ✅
 README                         ✅
-
-
+Distributed Verification       ✅
+Shared Redis State             ✅
 Next Session
-Sprint 15 – Distributed Consistency Verification
+Sprint 16 – Production Hardening & Final Review
+
+Status
+
+🟡 Planned
+
 Objective
 
-Demonstrate that multiple Spring Boot application instances connected to the same Redis instance maintain consistent rate-limit state.
+Perform a final engineering review of the rate limiter before considering the project feature-complete.
 
-Target architecture:
-
-                    Redis
-               Shared Rate State
-                      ^
-                      |
-          +-----------+-----------+
-          |           |           |
-          v           v           v
-       App #1       App #2      App #3
 Planned Tasks
-Run multiple Spring Boot application instances
-Connect all instances to the same Redis
-Send requests through different application instances
-Verify the Redis counter is shared
-Verify the configured limit is shared
-Verify consistent HTTP 429 enforcement
-Test expiration/reset behavior across instances
-Test concurrent traffic across instances
-Document the distributed behavior
-Update README with verified distributed architecture
+API Review
+ Review API response design
+ Review rate-limit response semantics
+ Consider remaining-request information
+ Consider reset-time information
+ Consider standard rate-limit response headers
+Production Hardening
+ Review graceful shutdown behavior
+ Review configuration validation
+ Review Redis failure behavior
+ Review logging and error handling
+ Review Actuator exposure
+ Review Docker configuration
+Final Verification
+ Run final automated test suite
+ Run final Docker verification
+ Run final JMeter benchmark
+ Review Render deployment
+ Review README
+ Finalize architecture documentation
+ Verify Git working tree is clean
+Important Constraint
+
+Do not add features simply to increase project size.
+
+The goal is to make the existing rate limiter robust, explainable, testable, and production-oriented.
+
+Avoid introducing Kubernetes, Kafka, or unrelated infrastructure unless a concrete engineering requirement emerges.
+
+Final Project Goal
+
+The target final architecture is:
+
+                         Client
+                           |
+                           v
+                  Spring Boot API
+                           |
+                           v
+                  Rate Limit Service
+                           |
+                           v
+                    Redis State
+                           |
+              +------------+------------+
+              |                         |
+              v                         v
+        Application #1            Application #2
+              |                         |
+              +------------+------------+
+                           |
+                    Shared Redis
+
+The core requirement is:
+
+Multiple application instances
+            +
+       Shared Redis
+            ↓
+Consistent distributed rate limiting
+
+Status:
+
+🟢 Core distributed behavior verified.
